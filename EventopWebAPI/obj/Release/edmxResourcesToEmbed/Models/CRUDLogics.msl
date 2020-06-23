@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EventopModelStoreContainer" CdmEntityContainer="EventopEntities">
+    <EntitySetMapping Name="AVALIACAO">
+      <EntityTypeMapping TypeName="EventopModel.AVALIACAO">
+        <MappingFragment StoreEntitySet="AVALIACAO">
+          <ScalarProperty Name="AV_ID_AVALIACAO" ColumnName="AV_ID_AVALIACAO" />
+          <ScalarProperty Name="AV_ID_EVENTO" ColumnName="AV_ID_EVENTO" />
+          <ScalarProperty Name="AV_ID_USUARIO_PARTICIPANTE" ColumnName="AV_ID_USUARIO_PARTICIPANTE" />
+          <ScalarProperty Name="AV_QTD_ESTRELAS" ColumnName="AV_QTD_ESTRELAS" />
+          <ScalarProperty Name="AV_OPINIAO_USUARIO_PARTICIPANTE" ColumnName="AV_OPINIAO_USUARIO_PARTICIPANTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EVENTO">
+      <EntityTypeMapping TypeName="EventopModel.EVENTO">
+        <MappingFragment StoreEntitySet="EVENTO">
+          <ScalarProperty Name="EVEN_ID_EVENTO" ColumnName="EVEN_ID_EVENTO" />
+          <ScalarProperty Name="EVEN_ID_CRIADOR_EVENTO" ColumnName="EVEN_ID_CRIADOR_EVENTO" />
+          <ScalarProperty Name="EVEN_NOME_EVENTO" ColumnName="EVEN_NOME_EVENTO" />
+          <ScalarProperty Name="EVEN_CATEGORIA_EVENTO" ColumnName="EVEN_CATEGORIA_EVENTO" />
+          <ScalarProperty Name="EVEN_DATA_EVENTO" ColumnName="EVEN_DATA_EVENTO" />
+          <ScalarProperty Name="EVEN_AVALIACAO_EVENTO" ColumnName="EVEN_AVALIACAO_EVENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="EventopModel.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="USUA_ID_USUARIO" ColumnName="USUA_ID_USUARIO" />
+          <ScalarProperty Name="USUA_LOGIN_USUARIO" ColumnName="USUA_LOGIN_USUARIO" />
+          <ScalarProperty Name="USUA_NOME_USUARIO" ColumnName="USUA_NOME_USUARIO" />
+          <ScalarProperty Name="USUA_SENHA_USUARIO" ColumnName="USUA_SENHA_USUARIO" />
+          <ScalarProperty Name="USUA_TIPO_USUARIO" ColumnName="USUA_TIPO_USUARIO" />
+          <ScalarProperty Name="USUA_DOCUMENTO_USUARIO" ColumnName="USUA_DOCUMENTO_USUARIO" />
+          <ScalarProperty Name="USUA_SESSAO_USUARIO" ColumnName="USUA_SESSAO_USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

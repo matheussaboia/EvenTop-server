@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AVALIACAO">
+    <Key>
+      <PropertyRef Name="AV_ID_AVALIACAO" />
+    </Key>
+    <Property Name="AV_ID_AVALIACAO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AV_ID_EVENTO" Type="Int64" Nullable="false" />
+    <Property Name="AV_ID_USUARIO_PARTICIPANTE" Type="Int64" />
+    <Property Name="AV_QTD_ESTRELAS" Type="Decimal" Precision="1" Scale="1" />
+    <Property Name="AV_OPINIAO_USUARIO_PARTICIPANTE" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="EVENTO" Relationship="Self.FK_AVALIACAO_EVENTO" FromRole="AVALIACAO" ToRole="EVENTO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_AVALIACAO_USUARIO_PARTICIPANTE" FromRole="AVALIACAO" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="EVENTO">
+    <Key>
+      <PropertyRef Name="EVEN_ID_EVENTO" />
+    </Key>
+    <Property Name="EVEN_ID_EVENTO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EVEN_ID_CRIADOR_EVENTO" Type="Int64" Nullable="false" />
+    <Property Name="EVEN_NOME_EVENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EVEN_CATEGORIA_EVENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EVEN_DATA_EVENTO" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+    <Property Name="EVEN_AVALIACAO_EVENTO" Type="Decimal" Precision="1" Scale="1" />
+    <NavigationProperty Name="AVALIACAO" Relationship="Self.FK_AVALIACAO_EVENTO" FromRole="EVENTO" ToRole="AVALIACAO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_EVENTO_USUARIO" FromRole="EVENTO" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="USUA_ID_USUARIO" />
+    </Key>
+    <Property Name="USUA_ID_USUARIO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USUA_LOGIN_USUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="USUA_NOME_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="USUA_SENHA_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="USUA_TIPO_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="USUA_DOCUMENTO_USUARIO" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+    <Property Name="USUA_SESSAO_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AVALIACAO" Relationship="Self.FK_AVALIACAO_USUARIO_PARTICIPANTE" FromRole="USUARIO" ToRole="AVALIACAO" />
+    <NavigationProperty Name="EVENTO" Relationship="Self.FK_EVENTO_USUARIO" FromRole="USUARIO" ToRole="EVENTO" />
+  </EntityType>
+  <Association Name="FK_AVALIACAO_EVENTO">
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="1" />
+    <End Role="AVALIACAO" Type="Self.AVALIACAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Principal>
+      <Dependent Role="AVALIACAO">
+        <PropertyRef Name="AV_ID_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AVALIACAO_USUARIO_PARTICIPANTE">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+    <End Role="AVALIACAO" Type="Self.AVALIACAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="AVALIACAO">
+        <PropertyRef Name="AV_ID_USUARIO_PARTICIPANTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EVENTO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_CRIADOR_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AVALIACAO" EntityType="Self.AVALIACAO" />
+    <EntitySet Name="EVENTO" EntityType="Self.EVENTO" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+    <AssociationSet Name="FK_AVALIACAO_EVENTO" Association="Self.FK_AVALIACAO_EVENTO">
+      <End Role="EVENTO" EntitySet="EVENTO" />
+      <End Role="AVALIACAO" EntitySet="AVALIACAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AVALIACAO_USUARIO_PARTICIPANTE" Association="Self.FK_AVALIACAO_USUARIO_PARTICIPANTE">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="AVALIACAO" EntitySet="AVALIACAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EVENTO_USUARIO" Association="Self.FK_EVENTO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="EVENTO" EntitySet="EVENTO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

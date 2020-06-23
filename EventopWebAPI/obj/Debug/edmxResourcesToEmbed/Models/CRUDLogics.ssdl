@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ENDERECO">
+    <Key>
+      <PropertyRef Name="END_ID_ENDERECO" />
+    </Key>
+    <Property Name="END_ID_ENDERECO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="END_CEP_ENDERECO" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="END_ESTADO_ENDERECO" Type="nvarchar" MaxLength="100" />
+    <Property Name="END_CIDADE_ENDERECO" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="END_BAIRRO_ENDERECO" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="END_LOGRADOURO_ENDERECO" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="END_COMPLEMENTO_ENDERECO" Type="nvarchar" MaxLength="100" />
+    <Property Name="END_NUMERO_ENDERECO" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="END_LATITUDE_ENDERECO" Type="nvarchar" MaxLength="50" />
+    <Property Name="END_LONGITUDE_ENDERECO" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="EVENTO">
+    <Key>
+      <PropertyRef Name="EVEN_ID_EVENTO" />
+    </Key>
+    <Property Name="EVEN_ID_EVENTO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="END_ID_ENDERECO" Type="bigint" Nullable="false" />
+    <Property Name="EVEN_ID_CRIADOR_EVENTO" Type="bigint" Nullable="false" />
+    <Property Name="EVEN_NOME_EVENTO" Type="nvarchar" MaxLength="80" />
+    <Property Name="EVEN_CATEGORIA_EVENTO" Type="nvarchar" MaxLength="50" />
+    <Property Name="EVEN_TIPO_EVENTO" Type="bit" />
+    <Property Name="EVEN_DESCRICAO_EVENTO" Type="nvarchar" MaxLength="200" />
+    <Property Name="EVEN_NUMERO_DE_PARTICIPANTES_EVENTO" Type="int" />
+    <Property Name="EVEN_DATA_EVENTO" Type="datetime" />
+    <Property Name="EVEN_URL_EVENTO" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="GALERIA">
+    <Key>
+      <PropertyRef Name="GAL_ID_GALERIA" />
+    </Key>
+    <Property Name="GAL_ID_GALERIA" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GAL_BYTE_IMAGEM_GALERIA" Type="varbinary(max)" Nullable="false" />
+    <Property Name="GAL_IMAGEM_PRINCIPAL_EVENTO" Type="bit" />
+  </EntityType>
+  <EntityType Name="GALERIA_EVENTO">
+    <Key>
+      <PropertyRef Name="GALEVEN_ID_GALERIA_EVENTO" />
+    </Key>
+    <Property Name="GALEVEN_ID_GALERIA_EVENTO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EVEN_ID_EVENTO" Type="bigint" Nullable="false" />
+    <Property Name="GAL_ID_GALERIA" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GALERIA_USUARIO">
+    <Key>
+      <PropertyRef Name="GALEVEN_ID_GALERIA_USUARIO" />
+    </Key>
+    <Property Name="GALEVEN_ID_GALERIA_USUARIO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USUA_ID_USUARIO" Type="bigint" Nullable="false" />
+    <Property Name="GAL_ID_GALERIA" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PARTICIPANTE_EVENTO">
+    <Key>
+      <PropertyRef Name="PAR_ID_PARTICIPANTE" />
+    </Key>
+    <Property Name="PAR_ID_PARTICIPANTE" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USUA_ID_USUARIO" Type="bigint" Nullable="false" />
+    <Property Name="EVEN_ID_EVENTO" Type="bigint" Nullable="false" />
+    <Property Name="PAR_DATA_PARTICIPANTE" Type="datetime" Nullable="false" />
+    <Property Name="PAR_QTD_AVALIACAO" Type="float" />
+    <Property Name="PAR_DESCRICAO_AVALIACAO" Type="nvarchar" MaxLength="500" />
+    <Property Name="PAR_DATA_AVALIACAO" Type="datetime" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="USUA_ID_USUARIO" />
+    </Key>
+    <Property Name="USUA_ID_USUARIO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USUA_LOGIN_USUARIO" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="USUA_NOME_USUARIO" Type="varchar" MaxLength="200" />
+    <Property Name="USUA_SENHA_USUARIO" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="USUA_EMAIL_USUARIO" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="USUA_WHATSAPP_USUARIO" Type="nvarchar" MaxLength="20" />
+    <Property Name="END_ID_ENDERECO" Type="bigint" />
+    <Property Name="USUA_TIPO_USUARIO" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="USUA_SEXO_USUARIO" Type="nvarchar" MaxLength="50" />
+    <Property Name="USUA_DOCUMENTO_USUARIO" Type="varchar" MaxLength="14" Nullable="false" />
+    <Property Name="USUA_SESSAO_USUARIO" Type="varchar" MaxLength="200" />
+    <Property Name="USUA_DATACRIACAO_USUARIO" Type="datetime" />
+  </EntityType>
+  <Association Name="FK_ENDERECO_USUARIO">
+    <End Role="ENDERECO" Type="Self.ENDERECO" Multiplicity="0..1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ENDERECO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EVENTO_ENDERECO">
+    <End Role="ENDERECO" Type="Self.ENDERECO" Multiplicity="1" />
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ENDERECO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Principal>
+      <Dependent Role="EVENTO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EVENTO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_CRIADOR_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAEVENTO_EVENTO">
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="1" />
+    <End Role="GALERIA_EVENTO" Type="Self.GALERIA_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Principal>
+      <Dependent Role="GALERIA_EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAEVENTO_GALERIA">
+    <End Role="GALERIA" Type="Self.GALERIA" Multiplicity="1" />
+    <End Role="GALERIA_EVENTO" Type="Self.GALERIA_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GALERIA">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Principal>
+      <Dependent Role="GALERIA_EVENTO">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAUSUARIO_GALERIA">
+    <End Role="GALERIA" Type="Self.GALERIA" Multiplicity="1" />
+    <End Role="GALERIA_USUARIO" Type="Self.GALERIA_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GALERIA">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Principal>
+      <Dependent Role="GALERIA_USUARIO">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAUSUARIO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="GALERIA_USUARIO" Type="Self.GALERIA_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="GALERIA_USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PARTICIPANTE_EVENTO">
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="1" />
+    <End Role="PARTICIPANTE_EVENTO" Type="Self.PARTICIPANTE_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Principal>
+      <Dependent Role="PARTICIPANTE_EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PARTICIPANTE_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PARTICIPANTE_EVENTO" Type="Self.PARTICIPANTE_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="PARTICIPANTE_EVENTO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventopModelStoreContainer">
+    <EntitySet Name="ENDERECO" EntityType="Self.ENDERECO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EVENTO" EntityType="Self.EVENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GALERIA" EntityType="Self.GALERIA" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GALERIA_EVENTO" EntityType="Self.GALERIA_EVENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GALERIA_USUARIO" EntityType="Self.GALERIA_USUARIO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PARTICIPANTE_EVENTO" EntityType="Self.PARTICIPANTE_EVENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ENDERECO_USUARIO" Association="Self.FK_ENDERECO_USUARIO">
+      <End Role="ENDERECO" EntitySet="ENDERECO" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EVENTO_ENDERECO" Association="Self.FK_EVENTO_ENDERECO">
+      <End Role="ENDERECO" EntitySet="ENDERECO" />
+      <End Role="EVENTO" EntitySet="EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EVENTO_USUARIO" Association="Self.FK_EVENTO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="EVENTO" EntitySet="EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAEVENTO_EVENTO" Association="Self.FK_GALERIAEVENTO_EVENTO">
+      <End Role="EVENTO" EntitySet="EVENTO" />
+      <End Role="GALERIA_EVENTO" EntitySet="GALERIA_EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAEVENTO_GALERIA" Association="Self.FK_GALERIAEVENTO_GALERIA">
+      <End Role="GALERIA" EntitySet="GALERIA" />
+      <End Role="GALERIA_EVENTO" EntitySet="GALERIA_EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAUSUARIO_GALERIA" Association="Self.FK_GALERIAUSUARIO_GALERIA">
+      <End Role="GALERIA" EntitySet="GALERIA" />
+      <End Role="GALERIA_USUARIO" EntitySet="GALERIA_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAUSUARIO_USUARIO" Association="Self.FK_GALERIAUSUARIO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="GALERIA_USUARIO" EntitySet="GALERIA_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PARTICIPANTE_EVENTO" Association="Self.FK_PARTICIPANTE_EVENTO">
+      <End Role="EVENTO" EntitySet="EVENTO" />
+      <End Role="PARTICIPANTE_EVENTO" EntitySet="PARTICIPANTE_EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PARTICIPANTE_USUARIO" Association="Self.FK_PARTICIPANTE_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="PARTICIPANTE_EVENTO" EntitySet="PARTICIPANTE_EVENTO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AVALIACAO">
+    <Key>
+      <PropertyRef Name="AV_ID_AVALIACAO" />
+    </Key>
+    <Property Name="AV_ID_AVALIACAO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AV_ID_EVENTO" Type="bigint" Nullable="false" />
+    <Property Name="AV_ID_USUARIO_PARTICIPANTE" Type="bigint" />
+    <Property Name="AV_QTD_ESTRELAS" Type="decimal" Precision="1" Scale="1" />
+    <Property Name="AV_OPINIAO_USUARIO_PARTICIPANTE" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="EVENTO">
+    <Key>
+      <PropertyRef Name="EVEN_ID_EVENTO" />
+    </Key>
+    <Property Name="EVEN_ID_EVENTO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EVEN_ID_CRIADOR_EVENTO" Type="bigint" Nullable="false" />
+    <Property Name="EVEN_NOME_EVENTO" Type="varchar" MaxLength="100" />
+    <Property Name="EVEN_CATEGORIA_EVENTO" Type="nvarchar" MaxLength="50" />
+    <Property Name="EVEN_DATA_EVENTO" Type="varchar" MaxLength="14" />
+    <Property Name="EVEN_AVALIACAO_EVENTO" Type="decimal" Precision="1" Scale="1" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="USUA_ID_USUARIO" />
+    </Key>
+    <Property Name="USUA_ID_USUARIO" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="USUA_LOGIN_USUARIO" Type="varchar" MaxLength="30" />
+    <Property Name="USUA_NOME_USUARIO" Type="varchar" MaxLength="200" />
+    <Property Name="USUA_SENHA_USUARIO" Type="nvarchar" MaxLength="200" />
+    <Property Name="USUA_TIPO_USUARIO" Type="varchar" MaxLength="20" />
+    <Property Name="USUA_DOCUMENTO_USUARIO" Type="varchar" MaxLength="14" />
+    <Property Name="USUA_SESSAO_USUARIO" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <Association Name="FK_AVALIACAO_EVENTO">
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="1" />
+    <End Role="AVALIACAO" Type="Self.AVALIACAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Principal>
+      <Dependent Role="AVALIACAO">
+        <PropertyRef Name="AV_ID_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AVALIACAO_USUARIO_PARTICIPANTE">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="0..1" />
+    <End Role="AVALIACAO" Type="Self.AVALIACAO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="AVALIACAO">
+        <PropertyRef Name="AV_ID_USUARIO_PARTICIPANTE" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EVENTO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_CRIADOR_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventopModelStoreContainer">
+    <EntitySet Name="AVALIACAO" EntityType="Self.AVALIACAO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EVENTO" EntityType="Self.EVENTO" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AVALIACAO_EVENTO" Association="Self.FK_AVALIACAO_EVENTO">
+      <End Role="EVENTO" EntitySet="EVENTO" />
+      <End Role="AVALIACAO" EntitySet="AVALIACAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AVALIACAO_USUARIO_PARTICIPANTE" Association="Self.FK_AVALIACAO_USUARIO_PARTICIPANTE">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="AVALIACAO" EntitySet="AVALIACAO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EVENTO_USUARIO" Association="Self.FK_EVENTO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="EVENTO" EntitySet="EVENTO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

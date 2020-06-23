@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EventopModelStoreContainer" CdmEntityContainer="EventopEntities">
+    <EntitySetMapping Name="ENDERECO">
+      <EntityTypeMapping TypeName="EventopModel.ENDERECO">
+        <MappingFragment StoreEntitySet="ENDERECO">
+          <ScalarProperty Name="END_ID_ENDERECO" ColumnName="END_ID_ENDERECO" />
+          <ScalarProperty Name="END_CEP_ENDERECO" ColumnName="END_CEP_ENDERECO" />
+          <ScalarProperty Name="END_ESTADO_ENDERECO" ColumnName="END_ESTADO_ENDERECO" />
+          <ScalarProperty Name="END_CIDADE_ENDERECO" ColumnName="END_CIDADE_ENDERECO" />
+          <ScalarProperty Name="END_BAIRRO_ENDERECO" ColumnName="END_BAIRRO_ENDERECO" />
+          <ScalarProperty Name="END_LOGRADOURO_ENDERECO" ColumnName="END_LOGRADOURO_ENDERECO" />
+          <ScalarProperty Name="END_COMPLEMENTO_ENDERECO" ColumnName="END_COMPLEMENTO_ENDERECO" />
+          <ScalarProperty Name="END_NUMERO_ENDERECO" ColumnName="END_NUMERO_ENDERECO" />
+          <ScalarProperty Name="END_LATITUDE_ENDERECO" ColumnName="END_LATITUDE_ENDERECO" />
+          <ScalarProperty Name="END_LONGITUDE_ENDERECO" ColumnName="END_LONGITUDE_ENDERECO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EVENTO">
+      <EntityTypeMapping TypeName="EventopModel.EVENTO">
+        <MappingFragment StoreEntitySet="EVENTO">
+          <ScalarProperty Name="EVEN_ID_EVENTO" ColumnName="EVEN_ID_EVENTO" />
+          <ScalarProperty Name="END_ID_ENDERECO" ColumnName="END_ID_ENDERECO" />
+          <ScalarProperty Name="EVEN_ID_CRIADOR_EVENTO" ColumnName="EVEN_ID_CRIADOR_EVENTO" />
+          <ScalarProperty Name="EVEN_NOME_EVENTO" ColumnName="EVEN_NOME_EVENTO" />
+          <ScalarProperty Name="EVEN_CATEGORIA_EVENTO" ColumnName="EVEN_CATEGORIA_EVENTO" />
+          <ScalarProperty Name="EVEN_TIPO_EVENTO" ColumnName="EVEN_TIPO_EVENTO" />
+          <ScalarProperty Name="EVEN_DESCRICAO_EVENTO" ColumnName="EVEN_DESCRICAO_EVENTO" />
+          <ScalarProperty Name="EVEN_NUMERO_DE_PARTICIPANTES_EVENTO" ColumnName="EVEN_NUMERO_DE_PARTICIPANTES_EVENTO" />
+          <ScalarProperty Name="EVEN_DATA_EVENTO" ColumnName="EVEN_DATA_EVENTO" />
+          <ScalarProperty Name="EVEN_URL_EVENTO" ColumnName="EVEN_URL_EVENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GALERIA">
+      <EntityTypeMapping TypeName="EventopModel.GALERIA">
+        <MappingFragment StoreEntitySet="GALERIA">
+          <ScalarProperty Name="GAL_ID_GALERIA" ColumnName="GAL_ID_GALERIA" />
+          <ScalarProperty Name="GAL_BYTE_IMAGEM_GALERIA" ColumnName="GAL_BYTE_IMAGEM_GALERIA" />
+          <ScalarProperty Name="GAL_IMAGEM_PRINCIPAL_EVENTO" ColumnName="GAL_IMAGEM_PRINCIPAL_EVENTO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GALERIA_EVENTO">
+      <EntityTypeMapping TypeName="EventopModel.GALERIA_EVENTO">
+        <MappingFragment StoreEntitySet="GALERIA_EVENTO">
+          <ScalarProperty Name="GALEVEN_ID_GALERIA_EVENTO" ColumnName="GALEVEN_ID_GALERIA_EVENTO" />
+          <ScalarProperty Name="EVEN_ID_EVENTO" ColumnName="EVEN_ID_EVENTO" />
+          <ScalarProperty Name="GAL_ID_GALERIA" ColumnName="GAL_ID_GALERIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GALERIA_USUARIO">
+      <EntityTypeMapping TypeName="EventopModel.GALERIA_USUARIO">
+        <MappingFragment StoreEntitySet="GALERIA_USUARIO">
+          <ScalarProperty Name="GALEVEN_ID_GALERIA_USUARIO" ColumnName="GALEVEN_ID_GALERIA_USUARIO" />
+          <ScalarProperty Name="USUA_ID_USUARIO" ColumnName="USUA_ID_USUARIO" />
+          <ScalarProperty Name="GAL_ID_GALERIA" ColumnName="GAL_ID_GALERIA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PARTICIPANTE_EVENTO">
+      <EntityTypeMapping TypeName="EventopModel.PARTICIPANTE_EVENTO">
+        <MappingFragment StoreEntitySet="PARTICIPANTE_EVENTO">
+          <ScalarProperty Name="PAR_ID_PARTICIPANTE" ColumnName="PAR_ID_PARTICIPANTE" />
+          <ScalarProperty Name="USUA_ID_USUARIO" ColumnName="USUA_ID_USUARIO" />
+          <ScalarProperty Name="EVEN_ID_EVENTO" ColumnName="EVEN_ID_EVENTO" />
+          <ScalarProperty Name="PAR_DATA_PARTICIPANTE" ColumnName="PAR_DATA_PARTICIPANTE" />
+          <ScalarProperty Name="PAR_QTD_AVALIACAO" ColumnName="PAR_QTD_AVALIACAO" />
+          <ScalarProperty Name="PAR_DESCRICAO_AVALIACAO" ColumnName="PAR_DESCRICAO_AVALIACAO" />
+          <ScalarProperty Name="PAR_DATA_AVALIACAO" ColumnName="PAR_DATA_AVALIACAO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USUARIO">
+      <EntityTypeMapping TypeName="EventopModel.USUARIO">
+        <MappingFragment StoreEntitySet="USUARIO">
+          <ScalarProperty Name="USUA_ID_USUARIO" ColumnName="USUA_ID_USUARIO" />
+          <ScalarProperty Name="USUA_LOGIN_USUARIO" ColumnName="USUA_LOGIN_USUARIO" />
+          <ScalarProperty Name="USUA_NOME_USUARIO" ColumnName="USUA_NOME_USUARIO" />
+          <ScalarProperty Name="USUA_SENHA_USUARIO" ColumnName="USUA_SENHA_USUARIO" />
+          <ScalarProperty Name="USUA_EMAIL_USUARIO" ColumnName="USUA_EMAIL_USUARIO" />
+          <ScalarProperty Name="USUA_WHATSAPP_USUARIO" ColumnName="USUA_WHATSAPP_USUARIO" />
+          <ScalarProperty Name="END_ID_ENDERECO" ColumnName="END_ID_ENDERECO" />
+          <ScalarProperty Name="USUA_TIPO_USUARIO" ColumnName="USUA_TIPO_USUARIO" />
+          <ScalarProperty Name="USUA_SEXO_USUARIO" ColumnName="USUA_SEXO_USUARIO" />
+          <ScalarProperty Name="USUA_DOCUMENTO_USUARIO" ColumnName="USUA_DOCUMENTO_USUARIO" />
+          <ScalarProperty Name="USUA_SESSAO_USUARIO" ColumnName="USUA_SESSAO_USUARIO" />
+          <ScalarProperty Name="USUA_DATACRIACAO_USUARIO" ColumnName="USUA_DATACRIACAO_USUARIO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

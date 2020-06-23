@@ -1,0 +1,257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EventopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ENDERECO">
+    <Key>
+      <PropertyRef Name="END_ID_ENDERECO" />
+    </Key>
+    <Property Name="END_ID_ENDERECO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="END_CEP_ENDERECO" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="END_ESTADO_ENDERECO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="END_CIDADE_ENDERECO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="END_BAIRRO_ENDERECO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="END_LOGRADOURO_ENDERECO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="END_COMPLEMENTO_ENDERECO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="END_NUMERO_ENDERECO" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="END_LATITUDE_ENDERECO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="END_LONGITUDE_ENDERECO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_ENDERECO_USUARIO" FromRole="ENDERECO" ToRole="USUARIO" />
+    <NavigationProperty Name="EVENTO" Relationship="Self.FK_EVENTO_ENDERECO" FromRole="ENDERECO" ToRole="EVENTO" />
+  </EntityType>
+  <EntityType Name="EVENTO">
+    <Key>
+      <PropertyRef Name="EVEN_ID_EVENTO" />
+    </Key>
+    <Property Name="EVEN_ID_EVENTO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="END_ID_ENDERECO" Type="Int64" Nullable="false" />
+    <Property Name="EVEN_ID_CRIADOR_EVENTO" Type="Int64" Nullable="false" />
+    <Property Name="EVEN_NOME_EVENTO" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="EVEN_CATEGORIA_EVENTO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EVEN_TIPO_EVENTO" Type="Boolean" />
+    <Property Name="EVEN_DESCRICAO_EVENTO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EVEN_NUMERO_DE_PARTICIPANTES_EVENTO" Type="Int32" />
+    <Property Name="EVEN_DATA_EVENTO" Type="DateTime" Precision="3" />
+    <Property Name="EVEN_URL_EVENTO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ENDERECO" Relationship="Self.FK_EVENTO_ENDERECO" FromRole="EVENTO" ToRole="ENDERECO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_EVENTO_USUARIO" FromRole="EVENTO" ToRole="USUARIO" />
+    <NavigationProperty Name="GALERIA_EVENTO" Relationship="Self.FK_GALERIAEVENTO_EVENTO" FromRole="EVENTO" ToRole="GALERIA_EVENTO" />
+    <NavigationProperty Name="PARTICIPANTE_EVENTO" Relationship="Self.FK_PARTICIPANTE_EVENTO" FromRole="EVENTO" ToRole="PARTICIPANTE_EVENTO" />
+  </EntityType>
+  <EntityType Name="GALERIA">
+    <Key>
+      <PropertyRef Name="GAL_ID_GALERIA" />
+    </Key>
+    <Property Name="GAL_ID_GALERIA" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GAL_BYTE_IMAGEM_GALERIA" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="GAL_IMAGEM_PRINCIPAL_EVENTO" Type="Boolean" />
+    <NavigationProperty Name="GALERIA_EVENTO" Relationship="Self.FK_GALERIAEVENTO_GALERIA" FromRole="GALERIA" ToRole="GALERIA_EVENTO" />
+    <NavigationProperty Name="GALERIA_USUARIO" Relationship="Self.FK_GALERIAUSUARIO_GALERIA" FromRole="GALERIA" ToRole="GALERIA_USUARIO" />
+  </EntityType>
+  <EntityType Name="GALERIA_EVENTO">
+    <Key>
+      <PropertyRef Name="GALEVEN_ID_GALERIA_EVENTO" />
+    </Key>
+    <Property Name="GALEVEN_ID_GALERIA_EVENTO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EVEN_ID_EVENTO" Type="Int64" Nullable="false" />
+    <Property Name="GAL_ID_GALERIA" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="EVENTO" Relationship="Self.FK_GALERIAEVENTO_EVENTO" FromRole="GALERIA_EVENTO" ToRole="EVENTO" />
+    <NavigationProperty Name="GALERIA" Relationship="Self.FK_GALERIAEVENTO_GALERIA" FromRole="GALERIA_EVENTO" ToRole="GALERIA" />
+  </EntityType>
+  <EntityType Name="GALERIA_USUARIO">
+    <Key>
+      <PropertyRef Name="GALEVEN_ID_GALERIA_USUARIO" />
+    </Key>
+    <Property Name="GALEVEN_ID_GALERIA_USUARIO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USUA_ID_USUARIO" Type="Int64" Nullable="false" />
+    <Property Name="GAL_ID_GALERIA" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="GALERIA" Relationship="Self.FK_GALERIAUSUARIO_GALERIA" FromRole="GALERIA_USUARIO" ToRole="GALERIA" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_GALERIAUSUARIO_USUARIO" FromRole="GALERIA_USUARIO" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="PARTICIPANTE_EVENTO">
+    <Key>
+      <PropertyRef Name="PAR_ID_PARTICIPANTE" />
+    </Key>
+    <Property Name="PAR_ID_PARTICIPANTE" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USUA_ID_USUARIO" Type="Int64" Nullable="false" />
+    <Property Name="EVEN_ID_EVENTO" Type="Int64" Nullable="false" />
+    <Property Name="PAR_DATA_PARTICIPANTE" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PAR_QTD_AVALIACAO" Type="Double" />
+    <Property Name="PAR_DESCRICAO_AVALIACAO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PAR_DATA_AVALIACAO" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="EVENTO" Relationship="Self.FK_PARTICIPANTE_EVENTO" FromRole="PARTICIPANTE_EVENTO" ToRole="EVENTO" />
+    <NavigationProperty Name="USUARIO" Relationship="Self.FK_PARTICIPANTE_USUARIO" FromRole="PARTICIPANTE_EVENTO" ToRole="USUARIO" />
+  </EntityType>
+  <EntityType Name="USUARIO">
+    <Key>
+      <PropertyRef Name="USUA_ID_USUARIO" />
+    </Key>
+    <Property Name="USUA_ID_USUARIO" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="USUA_LOGIN_USUARIO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USUA_NOME_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="USUA_SENHA_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USUA_EMAIL_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USUA_WHATSAPP_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="END_ID_ENDERECO" Type="Int64" />
+    <Property Name="USUA_TIPO_USUARIO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USUA_SEXO_USUARIO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="USUA_DOCUMENTO_USUARIO" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="USUA_SESSAO_USUARIO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="USUA_DATACRIACAO_USUARIO" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ENDERECO" Relationship="Self.FK_ENDERECO_USUARIO" FromRole="USUARIO" ToRole="ENDERECO" />
+    <NavigationProperty Name="EVENTO" Relationship="Self.FK_EVENTO_USUARIO" FromRole="USUARIO" ToRole="EVENTO" />
+    <NavigationProperty Name="GALERIA_USUARIO" Relationship="Self.FK_GALERIAUSUARIO_USUARIO" FromRole="USUARIO" ToRole="GALERIA_USUARIO" />
+    <NavigationProperty Name="PARTICIPANTE_EVENTO" Relationship="Self.FK_PARTICIPANTE_USUARIO" FromRole="USUARIO" ToRole="PARTICIPANTE_EVENTO" />
+  </EntityType>
+  <Association Name="FK_ENDERECO_USUARIO">
+    <End Role="ENDERECO" Type="Self.ENDERECO" Multiplicity="0..1" />
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ENDERECO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Principal>
+      <Dependent Role="USUARIO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EVENTO_ENDERECO">
+    <End Role="ENDERECO" Type="Self.ENDERECO" Multiplicity="1" />
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ENDERECO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Principal>
+      <Dependent Role="EVENTO">
+        <PropertyRef Name="END_ID_ENDERECO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EVENTO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_CRIADOR_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAEVENTO_EVENTO">
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="1" />
+    <End Role="GALERIA_EVENTO" Type="Self.GALERIA_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Principal>
+      <Dependent Role="GALERIA_EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PARTICIPANTE_EVENTO">
+    <End Role="EVENTO" Type="Self.EVENTO" Multiplicity="1" />
+    <End Role="PARTICIPANTE_EVENTO" Type="Self.PARTICIPANTE_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Principal>
+      <Dependent Role="PARTICIPANTE_EVENTO">
+        <PropertyRef Name="EVEN_ID_EVENTO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAEVENTO_GALERIA">
+    <End Role="GALERIA" Type="Self.GALERIA" Multiplicity="1" />
+    <End Role="GALERIA_EVENTO" Type="Self.GALERIA_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GALERIA">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Principal>
+      <Dependent Role="GALERIA_EVENTO">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAUSUARIO_GALERIA">
+    <End Role="GALERIA" Type="Self.GALERIA" Multiplicity="1" />
+    <End Role="GALERIA_USUARIO" Type="Self.GALERIA_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GALERIA">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Principal>
+      <Dependent Role="GALERIA_USUARIO">
+        <PropertyRef Name="GAL_ID_GALERIA" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GALERIAUSUARIO_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="GALERIA_USUARIO" Type="Self.GALERIA_USUARIO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="GALERIA_USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PARTICIPANTE_USUARIO">
+    <End Role="USUARIO" Type="Self.USUARIO" Multiplicity="1" />
+    <End Role="PARTICIPANTE_EVENTO" Type="Self.PARTICIPANTE_EVENTO" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="USUARIO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Principal>
+      <Dependent Role="PARTICIPANTE_EVENTO">
+        <PropertyRef Name="USUA_ID_USUARIO" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EventopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ENDERECO" EntityType="Self.ENDERECO" />
+    <EntitySet Name="EVENTO" EntityType="Self.EVENTO" />
+    <EntitySet Name="GALERIA" EntityType="Self.GALERIA" />
+    <EntitySet Name="GALERIA_EVENTO" EntityType="Self.GALERIA_EVENTO" />
+    <EntitySet Name="GALERIA_USUARIO" EntityType="Self.GALERIA_USUARIO" />
+    <EntitySet Name="PARTICIPANTE_EVENTO" EntityType="Self.PARTICIPANTE_EVENTO" />
+    <EntitySet Name="USUARIO" EntityType="Self.USUARIO" />
+    <AssociationSet Name="FK_ENDERECO_USUARIO" Association="Self.FK_ENDERECO_USUARIO">
+      <End Role="ENDERECO" EntitySet="ENDERECO" />
+      <End Role="USUARIO" EntitySet="USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EVENTO_ENDERECO" Association="Self.FK_EVENTO_ENDERECO">
+      <End Role="ENDERECO" EntitySet="ENDERECO" />
+      <End Role="EVENTO" EntitySet="EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EVENTO_USUARIO" Association="Self.FK_EVENTO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="EVENTO" EntitySet="EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAEVENTO_EVENTO" Association="Self.FK_GALERIAEVENTO_EVENTO">
+      <End Role="EVENTO" EntitySet="EVENTO" />
+      <End Role="GALERIA_EVENTO" EntitySet="GALERIA_EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PARTICIPANTE_EVENTO" Association="Self.FK_PARTICIPANTE_EVENTO">
+      <End Role="EVENTO" EntitySet="EVENTO" />
+      <End Role="PARTICIPANTE_EVENTO" EntitySet="PARTICIPANTE_EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAEVENTO_GALERIA" Association="Self.FK_GALERIAEVENTO_GALERIA">
+      <End Role="GALERIA" EntitySet="GALERIA" />
+      <End Role="GALERIA_EVENTO" EntitySet="GALERIA_EVENTO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAUSUARIO_GALERIA" Association="Self.FK_GALERIAUSUARIO_GALERIA">
+      <End Role="GALERIA" EntitySet="GALERIA" />
+      <End Role="GALERIA_USUARIO" EntitySet="GALERIA_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GALERIAUSUARIO_USUARIO" Association="Self.FK_GALERIAUSUARIO_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="GALERIA_USUARIO" EntitySet="GALERIA_USUARIO" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PARTICIPANTE_USUARIO" Association="Self.FK_PARTICIPANTE_USUARIO">
+      <End Role="USUARIO" EntitySet="USUARIO" />
+      <End Role="PARTICIPANTE_EVENTO" EntitySet="PARTICIPANTE_EVENTO" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
